@@ -2,6 +2,10 @@
 
 A React app to browse your favourite restaurants. UI built using chakra-ui.
 
+[Live on Heroku](https://rz-restaurants.herokuapp.com/)
+
+> Rename `.env.demo` to `.env` and add your zomato developer API key 
+
 ## Available Scripts
 
 In the project directory, you can run:
