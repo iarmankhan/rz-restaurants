@@ -1,12 +1,14 @@
 import RESTAURANT_ACTION_TYPES from "./restaurant.types";
 import constants from "../../constants/constants";
 
+// Fetch restaurant start
 export const fetchRestaurants = () => {
     return {
         type: RESTAURANT_ACTION_TYPES.FETCH_RESTAURANTS_START
     }
 };
 
+// Select current city's restaurant
 export const setCurrentRestaurants = (restaurants) => {
     return {
         type: RESTAURANT_ACTION_TYPES.SET_CURRENT_RESTAURANTS,
@@ -14,12 +16,14 @@ export const setCurrentRestaurants = (restaurants) => {
     }
 };
 
+// Fetch restaurants from API
 export const fetchRestaurantsAsync = (id) => {
     return async (dispatch, getState) => {
 
         const {restaurants: {allRestaurants}} = getState();
 
-        if(id in allRestaurants){
+        // check if current city's restaurant already in cache
+        if (id in allRestaurants) {
             dispatch(setCurrentRestaurants(allRestaurants[id]));
             return;
         }
@@ -27,6 +31,7 @@ export const fetchRestaurantsAsync = (id) => {
         dispatch(fetchRestaurants())
 
         try {
+            // Fetch from API
             const response = await fetch(`https://developers.zomato.com/api/v2.1/search?entity_id=${id}&entity_type=city&sort=rating`, {
                 method: 'GET',
                 headers: {
@@ -36,19 +41,20 @@ export const fetchRestaurantsAsync = (id) => {
             });
             const data = await response.json();
 
-            if(data.restaurants){
+            if (data.restaurants) {
                 const newData = {...allRestaurants, [id]: data.restaurants};
                 dispatch(fetchRestaurantsSuccess(newData))
                 dispatch(setCurrentRestaurants(newData[id]))
-            }else{
+            } else {
                 dispatch(fetchRestaurantsFailure('No data found'))
             }
-        }catch (e){
+        } catch (e) {
             dispatch(fetchRestaurantsFailure(e.message))
         }
     };
 };
 
+// Restaurant fetch success
 export const fetchRestaurantsSuccess = (restaurants) => {
     return {
         type: RESTAURANT_ACTION_TYPES.FETCH_RESTAURANTS_SUCCESS,
@@ -56,6 +62,7 @@ export const fetchRestaurantsSuccess = (restaurants) => {
     }
 };
 
+// Restaurant fetch failure
 export const fetchRestaurantsFailure = (error) => {
     return {
         type: RESTAURANT_ACTION_TYPES.FETCH_RESTAURANTS_FAILURE,
@@ -63,6 +70,7 @@ export const fetchRestaurantsFailure = (error) => {
     }
 }
 
+// Filter restaurants by name & cuisine
 export const filterCurrentRestaurants = (id, name, cuisine) => {
     return async (dispatch, getState) => {
         const {restaurants: {allRestaurants}} = getState();
@@ -76,6 +84,7 @@ export const filterCurrentRestaurants = (id, name, cuisine) => {
     };
 };
 
+// Reset all the filters
 export const resetFilters = (id) => {
     return async (dispatch, getState) => {
         const {restaurants: {allRestaurants}} = getState();

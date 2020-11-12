@@ -1,11 +1,10 @@
 import React from 'react';
-import {
-    CSSReset,
-} from '@chakra-ui/core';
+import {CSSReset,} from '@chakra-ui/core';
 import Header from "./components/Header/Header.component";
-import {Switch, Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import Home from "./pages/Home/Home.page";
 import Restaurants from "./pages/Restaurants/Restaurants.page";
+import Restaurant from "./pages/Restaurant/Restaurant.page";
 
 function App() {
     return (
@@ -15,6 +14,7 @@ function App() {
             <Switch>
                 <Route path='/' exact component={Home}/>
                 <Route path='/city/:cityId' exact component={Restaurants}/>
+                <Route path='/restaurant/:restaurantId' exact component={Restaurant}/>
             </Switch>
         </>
     );

@@ -5,7 +5,7 @@ import theme from "@chakra-ui/theme";
 import {ChakraProvider} from "@chakra-ui/core";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {store, persistor} from "./redux/store";
+import {persistor, store} from "./redux/store";
 import {PersistGate} from 'redux-persist/integration/react'
 
 ReactDOM.render(

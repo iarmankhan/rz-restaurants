@@ -5,9 +5,9 @@ import {Link} from "react-router-dom";
 
 const Header = () => {
     return (
-        <Flex padding={4} borderBottom='1px'  align='center' justify='space-between'>
+        <Flex padding={4} borderBottom='1px' align='center' justify='space-between'>
             <Link to={'/'}><Heading as='h3'>Zomato</Heading></Link>
-            <ColorModeSwitcher />
+            <ColorModeSwitcher/>
         </Flex>
     )
 };

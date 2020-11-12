@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import {Box, Flex, SimpleGrid, Input, Text} from '@chakra-ui/core'
+import {Box, Input, SimpleGrid} from '@chakra-ui/core'
 import Layout from "../../components/Layout/Layout.component";
 import City from "../../components/City/City.component";
 import initialCities from "../../redux/cities";
 import constants from "../../constants/constants";
+import CenteredView from "../../components/CenteredView/CenteredView.component";
 
 const Home = () => {
     const [cities, setCities] = useState(initialCities);
@@ -50,7 +51,7 @@ const Home = () => {
                             }
                         </SimpleGrid>
                     )
-                    : (<Flex align='center' margin={10} justify='center'>No Cities Found!</Flex>)
+                    : (<CenteredView>No Cities Found!</CenteredView>)
             }
         </Layout>
     )

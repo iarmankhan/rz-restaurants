@@ -3,14 +3,16 @@ import {Box, Grid, Spinner} from '@chakra-ui/core';
 import {createStructuredSelector} from "reselect";
 import {
     selectAllRestaurants,
-    selectCurrentRestaurants, selectError,
+    selectCurrentRestaurants,
+    selectError,
     selectIsLoading
 } from "../../redux/restaurant/restaurant.selectors";
 import {connect} from "react-redux";
 import {fetchRestaurantsAsync} from "../../redux/restaurant/restaurant.actions";
-import Restaurant from "../../components/Restaurant/Restaurant.component";
+import Restaurant from "../../components/RestaurantCard/RestaurantCard.component";
 import Filters from "../../components/Filters/Filters.component";
 import Layout from "../../components/Layout/Layout.component";
+import CenteredView from "../../components/CenteredView/CenteredView.component";
 
 const Restaurants = ({match, restaurants, isLoading, error, fetchRestaurantsFromAPI}) => {
     const {cityId} = match.params;
@@ -25,17 +27,17 @@ const Restaurants = ({match, restaurants, isLoading, error, fetchRestaurantsFrom
 
     if (isLoading) {
         return (
-            <Box>
+            <CenteredView>
                 <Spinner size="xl"/>
-            </Box>
+            </CenteredView>
         )
     }
 
     if (!isLoading && error) {
         return (
-            <Box>
+            <CenteredView>
                 Some errors occurred!
-            </Box>
+            </CenteredView>
         )
     }
 
@@ -46,7 +48,7 @@ const Restaurants = ({match, restaurants, isLoading, error, fetchRestaurantsFrom
             </Box>
             {
                 !isLoading && restaurants.length === 0 ?
-                    <Box>No restaurants found!!</Box>
+                    <CenteredView>No restaurants found!!</CenteredView>
                     :
                     <Grid marginY={5} templateColumns="repeat(3, 1fr)" gap={3}>
                         {
@@ -57,10 +59,7 @@ const Restaurants = ({match, restaurants, isLoading, error, fetchRestaurantsFrom
                                         id={restaurant.id}
                                         name={restaurant.name}
                                         imageUrl={restaurant.featured_image}
-                                        location={restaurant.location.address}
                                         price={restaurant.average_cost_for_two}
-                                        timings={restaurant.timings}
-                                        url={restaurant.url}
                                         user_rating={restaurant.user_rating.aggregate_rating}
                                         votes={restaurant.user_rating.votes}
                                     />

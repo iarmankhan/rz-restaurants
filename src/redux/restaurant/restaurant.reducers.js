@@ -1,6 +1,7 @@
 import RESTAURANT_ACTION_TYPES from "./restaurant.types";
 import storage from 'redux-persist/lib/storage'
 
+// Restaurant Initial state
 const INITIAL_STATE = {
     allRestaurants: {},
     restaurants: [],
@@ -8,12 +9,14 @@ const INITIAL_STATE = {
     error: null
 };
 
+// Restaurant persist config
 export const restaurantConfig = {
     key: 'restaurant',
     storage,
     blacklist: ['isLoading', 'error']
 };
 
+// Restaurant reducer
 export const restaurantReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case RESTAURANT_ACTION_TYPES.FETCH_RESTAURANTS_START:

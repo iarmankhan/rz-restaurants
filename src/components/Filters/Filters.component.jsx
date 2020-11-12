@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {SimpleGrid, Box, Button, Input, Select} from '@chakra-ui/core';
+import {Box, Button, Input, Select, SimpleGrid} from '@chakra-ui/core';
 import {createStructuredSelector} from "reselect";
 import {selectCuisines} from "../../redux/restaurant/restaurant.selectors";
 import {connect} from "react-redux";
@@ -31,7 +31,7 @@ const Filters = ({id, filterRestaurants, resetFilters, cuisines}) => {
     }
 
     return (
-        <SimpleGrid columns={[2, null, 3]}  spacing={3}>
+        <SimpleGrid columns={[2, null, 3]} spacing={3}>
             <Box>
                 <Input value={search.name} onChange={searchTextBoxChange} placeholder='Search Restaurant'
                        variant='filled'/>
