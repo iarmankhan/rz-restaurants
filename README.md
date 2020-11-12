@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# RZ - Restaurants
+
+A React app to browse your favourite restaurants. UI built using chakra-ui.
 
 ## Available Scripts
 

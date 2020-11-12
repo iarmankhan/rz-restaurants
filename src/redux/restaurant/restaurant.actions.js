@@ -1,5 +1,5 @@
 import RESTAURANT_ACTION_TYPES from "./restaurant.types";
-import constants from "../../constants/constants";
+
 
 // Fetch restaurant start
 export const fetchRestaurants = () => {
@@ -36,7 +36,7 @@ export const fetchRestaurantsAsync = (id) => {
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
-                    "user-key": constants.API_KEY
+                    "user-key": process.env.REACT_APP_API_KEY
                 }
             });
             const data = await response.json();

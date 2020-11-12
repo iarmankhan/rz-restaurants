@@ -3,7 +3,6 @@ import {Box, Input, SimpleGrid} from '@chakra-ui/core'
 import Layout from "../../components/Layout/Layout.component";
 import City from "../../components/City/City.component";
 import initialCities from "../../redux/cities";
-import constants from "../../constants/constants";
 import CenteredView from "../../components/CenteredView/CenteredView.component";
 
 const Home = () => {
@@ -23,7 +22,7 @@ const Home = () => {
                 method: 'GET',
                 headers: {
                     "Accept": "application/json",
-                    "user-key": constants.API_KEY
+                    "user-key": process.env.REACT_APP_API_KEY
                 }
             });
             const data = await response.json();

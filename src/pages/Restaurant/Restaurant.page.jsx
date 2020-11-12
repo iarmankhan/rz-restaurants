@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, Flex, Heading, Image, Link, Spinner, Text} from '@chakra-ui/core'
-import constants from "../../constants/constants";
 import Layout from "../../components/Layout/Layout.component";
 import {StarIcon} from "@chakra-ui/icons";
 import CenteredView from "../../components/CenteredView/CenteredView.component";
@@ -20,10 +19,14 @@ const Restaurant = ({match}) => {
                     method: 'GET',
                     headers: {
                         "Accept": "application/json",
-                        "user-key": constants.API_KEY
+                        "user-key": process.env.REACT_APP_API_KEY
                     }
                 });
                 const data = await response.json();
+
+                if(data?.code === 403 || data?.code === 404){
+                    throw new Error("Some errors occurred")
+                }
                 setRestaurant(data);
             } catch (e) {
                 setError(e.message)
@@ -56,7 +59,7 @@ const Restaurant = ({match}) => {
             </CenteredView>
         )
     }
-
+    console.log(restaurant)
     return (
         <Layout>
             <Flex>
@@ -76,11 +79,11 @@ const Restaurant = ({match}) => {
                                     marginX={'2px'}
                                     key={i}
                                     boxSize={5}
-                                    color={i < restaurant.user_rating.aggregate_rating ? "teal.500" : "gray.300"}
+                                    color={i < restaurant?.user_rating?.aggregate_rating ? "teal.500" : "gray.300"}
                                 />
                             ))}
                         <Box as="span" ml="2" color="gray.600" fontSize="sm">
-                            {restaurant.user_rating.votes} votes
+                            {restaurant?.user_rating?.votes} votes
                         </Box>
                     </Box>
                     <Box mt={5}>
@@ -96,7 +99,7 @@ const Restaurant = ({match}) => {
                                                                               fontWeight={600}>Timings: </Box>{restaurant.timings}
                         </Text>
                         <Text color="gray.600" fontSize={18} marginY={1}><Box as='span'
-                                                                              fontWeight={600}>Address: </Box>{restaurant.location.address}
+                                                                              fontWeight={600}>Address: </Box>{restaurant?.location?.address}
                         </Text>
                     </Box>
                     <Box mt={5}>
