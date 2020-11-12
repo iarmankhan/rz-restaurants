@@ -26,12 +26,12 @@ const Restaurants = ({match, restaurants, isLoading, error, fetchRestaurantsFrom
     if (isLoading) {
         return (
             <Box>
-                <Spinner size="xl" />
+                <Spinner size="xl"/>
             </Box>
         )
     }
 
-    if(!isLoading && error){
+    if (!isLoading && error) {
         return (
             <Box>
                 Some errors occurred!
@@ -39,34 +39,36 @@ const Restaurants = ({match, restaurants, isLoading, error, fetchRestaurantsFrom
         )
     }
 
-    if (!isLoading && restaurants.length === 0) {
-        return (
-            <Box>Not found</Box>
-        )
-    }
-
     return (
         <Layout>
-            <Grid marginY={5} templateColumns="repeat(3, 1fr)" gap={3}>
-                {
-                    restaurants.map(({restaurant}) => {
-                        return (
-                            <Restaurant
-                                key={restaurant.id}
-                                id={restaurant.id}
-                                name={restaurant.name}
-                                imageUrl={restaurant.featured_image}
-                                location={restaurant.location.address}
-                                price={restaurant.average_cost_for_two}
-                                timings={restaurant.timings}
-                                url={restaurant.url}
-                                user_rating={restaurant.user_rating.aggregate_rating}
-                                votes={restaurant.user_rating.votes}
-                            />
-                        )
-                    })
-                }
-            </Grid>
+            <Box>
+                <Filters id={cityId}/>
+            </Box>
+            {
+                !isLoading && restaurants.length === 0 ?
+                    <Box>No restaurants found!!</Box>
+                    :
+                    <Grid marginY={5} templateColumns="repeat(3, 1fr)" gap={3}>
+                        {
+                            restaurants.map(({restaurant}) => {
+                                return (
+                                    <Restaurant
+                                        key={restaurant.id}
+                                        id={restaurant.id}
+                                        name={restaurant.name}
+                                        imageUrl={restaurant.featured_image}
+                                        location={restaurant.location.address}
+                                        price={restaurant.average_cost_for_two}
+                                        timings={restaurant.timings}
+                                        url={restaurant.url}
+                                        user_rating={restaurant.user_rating.aggregate_rating}
+                                        votes={restaurant.user_rating.votes}
+                                    />
+                                )
+                            })
+                        }
+                    </Grid>
+            }
         </Layout>
     )
 };

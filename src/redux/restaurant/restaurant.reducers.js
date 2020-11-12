@@ -41,7 +41,17 @@ export const restaurantReducer = (state = INITIAL_STATE, action) => {
                 restaurants: action.payload,
                 isLoading: false,
                 error: null
-            }
+            };
+        case RESTAURANT_ACTION_TYPES.FILTER_CURRENT_RESTAURANTS:
+            return {
+                ...state,
+                restaurants: action.payload
+            };
+        case RESTAURANT_ACTION_TYPES.RESET_FILTERS:
+            return {
+                ...state,
+                restaurants: action.payload
+            };
         default:
             return state;
     }

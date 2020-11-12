@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Box, Flex, Grid, Input, Text} from '@chakra-ui/core'
+import {Box, Flex, SimpleGrid, Input, Text} from '@chakra-ui/core'
 import Layout from "../../components/Layout/Layout.component";
 import City from "../../components/City/City.component";
 import initialCities from "../../redux/cities";
@@ -44,11 +44,11 @@ const Home = () => {
             {
                 Object.keys(cities).length > 0 ?
                     (
-                        <Grid marginY={5} templateColumns="repeat(4, 1fr)" gap={3}>
+                        <SimpleGrid marginY={5} minChildWidth="200px" gap={3}>
                             {
                                 Object.keys(cities).map(city => <City key={city} name={cities[city]} id={city}/>)
                             }
-                        </Grid>
+                        </SimpleGrid>
                     )
                     : (<Flex align='center' margin={10} justify='center'>No Cities Found!</Flex>)
             }

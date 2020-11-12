@@ -40,6 +40,8 @@ export const fetchRestaurantsAsync = (id) => {
                 const newData = {...allRestaurants, [id]: data.restaurants};
                 dispatch(fetchRestaurantsSuccess(newData))
                 dispatch(setCurrentRestaurants(newData[id]))
+            }else{
+                dispatch(fetchRestaurantsFailure('No data found'))
             }
         }catch (e){
             dispatch(fetchRestaurantsFailure(e.message))
@@ -60,3 +62,27 @@ export const fetchRestaurantsFailure = (error) => {
         payload: error.message
     }
 }
+
+export const filterCurrentRestaurants = (id, name, cuisine) => {
+    return async (dispatch, getState) => {
+        const {restaurants: {allRestaurants}} = getState();
+        const filtered = allRestaurants[id].filter(({restaurant}) => {
+            return restaurant.name.toLowerCase().includes(name.toLowerCase()) && restaurant.cuisines.toLowerCase().includes(cuisine.toLowerCase())
+        });
+        dispatch({
+            type: RESTAURANT_ACTION_TYPES.FILTER_CURRENT_RESTAURANTS,
+            payload: filtered
+        })
+    };
+};
+
+export const resetFilters = (id) => {
+    return async (dispatch, getState) => {
+        const {restaurants: {allRestaurants}} = getState();
+
+        dispatch({
+            type: RESTAURANT_ACTION_TYPES.RESET_FILTERS,
+            payload: allRestaurants[id]
+        })
+    };
+};
