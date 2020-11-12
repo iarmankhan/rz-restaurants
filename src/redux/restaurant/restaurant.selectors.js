@@ -21,3 +21,15 @@ export const selectError = createSelector(
     [selectRestaurantsState],
     restaurants => restaurants.error
 )
+
+export const selectCuisines = createSelector(
+    [selectCurrentRestaurants],
+    restaurants => {
+        const cuisines = new Set();
+        restaurants.forEach(({restaurant}) => {
+            const currentCuisines = restaurant.cuisines.split(', ');
+            currentCuisines.forEach(c => cuisines.add(c));
+        });
+        return [...cuisines];
+    }
+);
