@@ -1,8 +1,16 @@
 import {combineReducers} from "redux";
-import restaurantReducer from "./restaurant/restaurant.reducers";
+import {persistReducer} from 'redux-persist'
+import {restaurantReducer, restaurantConfig} from "./restaurant/restaurant.reducers";
+import storage from 'redux-persist/lib/storage'
+
+const rootConfig = {
+    key: 'root',
+    storage,
+    blacklist: []
+};
 
 const rootReducer = combineReducers({
-    restaurants: restaurantReducer
+    restaurants: persistReducer(restaurantConfig, restaurantReducer)
 });
 
-export default rootReducer;
+export default persistReducer(rootConfig, rootReducer);

@@ -27,7 +27,7 @@ const Home = () => {
             });
             const data = await response.json();
 
-            if (data.location_suggestions) {
+            if (data?.location_suggestions) {
                 const results = {}
                 data.location_suggestions.forEach(location => results[location.id] = location.name)
 
@@ -46,7 +46,7 @@ const Home = () => {
                     (
                         <Grid marginY={5} templateColumns="repeat(4, 1fr)" gap={3}>
                             {
-                                Object.keys(cities).map(city => <City name={cities[city]} id={city}/>)
+                                Object.keys(cities).map(city => <City key={city} name={cities[city]} id={city}/>)
                             }
                         </Grid>
                     )
